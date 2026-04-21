@@ -99,9 +99,28 @@ class MesaSimulation(Simulation, Model):
     def _create_data_collector(self):
         return DataCollector(
             # only model_reporters can be displayed by ChartModule of mesa server
-            model_reporters={'agent_count': lambda m: m.schedule.get_agent_count()},
+            model_reporters={
+                'CH4-DRI': lambda m: m.count_sites_using_process(39),
+                'H2-DRI': lambda m: m.count_sites_using_process(38),
+                'Blast Furnace': lambda m: m.count_sites_using_process(11),
+                'Ammonia SMR': lambda m: m.count_sites_using_process(9),
+                'Ammonia H2': lambda m: m.count_sites_using_process(8),
+                'Steam Cracking': lambda m: m.count_sites_using_process(100),
+                'Ethylene H2': lambda m: m.count_sites_using_process(44),
+                'Methanol SMR': lambda m: m.count_sites_using_process(60),
+                'Methanol H2': lambda m: m.count_sites_using_process(59),
+                'agent_count': lambda m: m.schedule.get_agent_count(),
+            },
             agent_reporters={'process_ids': self._determine_process_ids},
         )
+
+    def count_sites_using_process(self, process_id):
+        count = 0
+        for region in self.regions.values():
+            for site in region.sites:
+                if process_id in site.process_ids:
+                    count += 1
+        return count
 
     def _site_ids(self):
         all_site_ids = []

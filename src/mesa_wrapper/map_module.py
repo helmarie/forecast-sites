@@ -3,9 +3,10 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 import json
-from pathlib import Path
 
 from mesa_viz_tornado.ModularVisualization import VisualizationElement
+
+from utils import file_utils
 
 
 class MapModule(VisualizationElement):
@@ -45,7 +46,9 @@ class MapModule(VisualizationElement):
         feature_collection = self._extract_serializable_json(model)
 
         j = json.dumps(feature_collection)
-        with Path('data.json').open('w', encoding='utf8') as f:
+        output_folder = file_utils.path_from_project_root('output')
+        file_utils.create_folder_if_not_exists(output_folder)
+        with (output_folder / 'data.json').open('w', encoding='utf8') as f:
             f.write(j)
         return feature_collection
 
@@ -75,6 +78,6 @@ class MapModule(VisualizationElement):
 
             for key, value in portrayal.items():
                 shape_info['properties'][key] = value
-                feature_collection['features'].append(shape_info)
+            feature_collection['features'].append(shape_info)
 
         return feature_collection

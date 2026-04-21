@@ -10,7 +10,7 @@ from visitor.visitor import Visitor
 
 class ShapeFileVisitor(Visitor):
     def __init__(self):
-        self._output_path = '../output'
+        self._output_path = file_utils.path_from_project_root('output')
         file_utils.create_folder_if_not_exists(self._output_path)
 
     def visit_region(self, region, year):
@@ -47,10 +47,10 @@ class ShapeFileVisitor(Visitor):
 
     def _prepare_shape_file_path(self, year):
         shape_folder_name = 'shape_file_' + str(year)
-        shape_folder_path = self._output_path + '/' + shape_folder_name
+        shape_folder_path = self._output_path / shape_folder_name
         file_utils.create_folder_if_not_exists(shape_folder_path)
 
-        return shape_folder_path + '/technology_diffusion.shp'
+        return shape_folder_path / 'technology_diffusion.shp'
 
     @staticmethod
     def _check_export_column_names(data_frame):

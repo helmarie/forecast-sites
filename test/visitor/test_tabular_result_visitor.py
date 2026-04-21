@@ -2,6 +2,8 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
+from pathlib import Path
+
 import pandas as pd
 import pytest
 from mock import MagicMock, patch
@@ -73,7 +75,7 @@ def test__save(sut):
     df.to_excel = MagicMock()
 
     with patch('sqlite3.connect'), patch('utils.file_utils.delete_file_if_exists') as patched_delete_file:
-        sut._save(df, 'mocked_name', 'mocked_output_folder')
+        sut._save(df, 'mocked_name', Path('mocked_output_folder'))
 
         assert patched_delete_file.called
         assert TabularResultVisitor._create_empty_table_for_df.called

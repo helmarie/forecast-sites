@@ -3,7 +3,6 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 import os
-import profile
 
 from mesa_viz_tornado.ModularVisualization import ModularServer
 from mesa_viz_tornado.modules import ChartModule
@@ -25,7 +24,7 @@ class MesaServer:
     def run(self):
         os.path.sep = os.sep  # fixes tornado issue
 
-        profile.run(self._visualization_server.launch())
+        self._visualization_server.launch()
 
     @staticmethod
     def agent_portrayal(site_agent):
@@ -93,9 +92,13 @@ class MesaServer:
             [
                 {'Label': 'CH4-DRI', 'Color': 'Blue'},
                 {'Label': 'H2-DRI', 'Color': 'Green'},
-                {'Label': '11', 'Color': 'Red'},
-                {'Label': '12', 'Color': 'Black'},
-                {'Label': '13', 'Color': 'Yellow'},
+                {'Label': 'Blast Furnace', 'Color': 'Tomato'},
+                {'Label': 'Ammonia SMR', 'Color': 'Grey'},
+                {'Label': 'Ammonia H2', 'Color': 'Turquoise'},
+                {'Label': 'Steam Cracking', 'Color': 'Sienna'},
+                {'Label': 'Ethylene H2', 'Color': 'Purple'},
+                {'Label': 'Methanol SMR', 'Color': 'Goldenrod'},
+                {'Label': 'Methanol H2', 'Color': 'Olive'},
                 {'Label': 'agent_count', 'Color': 'Purple'},
             ]
         )

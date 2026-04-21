@@ -7,7 +7,7 @@ import sqlite3
 import geopandas
 import pandas as pd
 
-from utils import collection_utils, time_utils
+from utils import collection_utils, file_utils, time_utils
 
 
 # pylint: disable=too-many-instance-attributes
@@ -17,7 +17,7 @@ class DataInterface:
         self._scenario_options = scenario_options
         self.id_region = id_region
 
-        connection = sqlite3.connect('./input/input.sqlite')
+        connection = sqlite3.connect(file_utils.path_from_project_root('input', 'input.sqlite'))
         with connection:
             self.energy_carrier_data = self._read_energy_carrier_data(connection)
 

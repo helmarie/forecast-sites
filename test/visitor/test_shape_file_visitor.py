@@ -6,6 +6,7 @@ import pandas as pd
 import pytest
 from mock import MagicMock, patch
 
+from utils import file_utils
 from visitor.shape_file_visitor import ShapeFileVisitor
 
 
@@ -101,11 +102,11 @@ class TestExportSitesToShapeFile:
 def test__prepare_shape_file_path(sut):
     with patch('utils.file_utils.create_folder_if_not_exists'):
         result = sut._prepare_shape_file_path(year=2020)
-        assert result == '../output/shape_file_2020/technology_diffusion.shp'
+        assert result == file_utils.path_from_project_root('output', 'shape_file_2020', 'technology_diffusion.shp')
 
 
 def test__check_export_column_names(sut):
     data_frame = pd.DataFrame({'a_long_column_name': [1]})
-    with patch('builtins.print') as patched_print:
+    with patch('logging.warning') as patched_warning:
         sut._check_export_column_names(data_frame)
-        assert patched_print.called
+        assert patched_warning.called

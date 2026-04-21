@@ -5,10 +5,18 @@
 from pathlib import Path
 
 
+def project_root():
+    return Path(__file__).resolve().parents[2]
+
+
+def path_from_project_root(*parts):
+    return project_root().joinpath(*parts)
+
+
 def create_folder_if_not_exists(folder_path):
     path = Path(folder_path)
     if not path.is_dir():
-        path.mkdir()
+        path.mkdir(parents=True)
 
 
 def delete_file_if_exists(file_path):

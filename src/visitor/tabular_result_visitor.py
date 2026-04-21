@@ -402,7 +402,7 @@ class TabularResultVisitor(Visitor):
 
     def finalize(self):
         logging.info('finalize')
-        output_folder = './output'  # assumes that 'src' is the working directory
+        output_folder = file_utils.path_from_project_root('output')
         file_utils.create_folder_if_not_exists(output_folder)
 
         # Unspecific results for individual site and production unit
@@ -490,10 +490,10 @@ class TabularResultVisitor(Visitor):
 
     @staticmethod
     def _save(df, name, output_folder):
-        sqlite_path = output_folder + '/output.sqlite'
+        sqlite_path = output_folder / 'output.sqlite'
         connection = sqlite3.connect(sqlite_path)
 
-        excel_path = output_folder + '/' + name + '.xlsx'
+        excel_path = output_folder / f'{name}.xlsx'
 
         query = 'DROP TABLE IF EXISTS ' + name
         connection.execute(query)

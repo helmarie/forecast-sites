@@ -20,7 +20,7 @@ def main():
         'co2_cost_2015_in_euro_per_ton_co2': 80,
         'co2_cost_2050_in_euro_per_ton_co2': 200,
         'id_product_filter': [
-            5,
+            5, 22, 32, 51
         ],  # 22, 32, 51],  # only sites producing those products will be considered; all sites if empty array
         'region_ids': [
             1,

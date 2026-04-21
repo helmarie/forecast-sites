@@ -35,9 +35,8 @@ def sut():
 
 def test_run(sut):
     sut._visualization_server.launch = MagicMock()
-    with patch('profile.run') as patched_profile_run:
-        sut.run()
-        assert patched_profile_run.called
+    sut.run()
+    assert sut._visualization_server.launch.called
 
 
 class TestAgentPortrayal:
@@ -55,17 +54,12 @@ class TestAgentPortrayal:
     def test_red(self, sut):
         self.site_agent.site.process_ids = [11]
         result = sut.agent_portrayal(self.site_agent)
-        assert result['color'] == 'Red'
+        assert result['color'] == 'Tomato'
 
     def test_black(self, sut):
         self.site_agent.site.process_ids = [9]
         result = sut.agent_portrayal(self.site_agent)
-        assert result['color'] == 'Black'
-
-    def test_yellow(self, sut):
-        self.site_agent.site.process_ids = [12]
-        result = sut.agent_portrayal(self.site_agent)
-        assert result['color'] == 'Yellow'
+        assert result['color'] == 'Grey'
 
     def test_green(self, sut):
         self.site_agent.site.process_ids = [38]
@@ -75,12 +69,12 @@ class TestAgentPortrayal:
     def test_brown(self, sut):
         self.site_agent.site.process_ids = [100]
         result = sut.agent_portrayal(self.site_agent)
-        assert result['color'] == 'Brown'
+        assert result['color'] == 'Sienna'
 
     def test_pink(self, sut):
         self.site_agent.site.process_ids = [8]
         result = sut.agent_portrayal(self.site_agent)
-        assert result['color'] == 'Pink'
+        assert result['color'] == 'Turquoise'
 
 
 @patch.object(ModularServer, '__init__', modular_server_init_mock)
